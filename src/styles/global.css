@@ -1,0 +1,105 @@
+/* ---------- Layout Setting --------- */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.navbar {
+  width: 100%;
+  height: 54px;
+  background-color: #0f0f13;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  overflow: hidden;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ----------- Padding ------------- */
+.py-1 {
+  padding: 1rem 0 1rem 0;
+}
+
+.pb-1 {
+  padding-bottom: 1rem;
+}
+
+/* --------- Font Weight ------------- */
+.fw-semibold {
+  font-weight: 600;
+}
+.fw-bold {
+  font-weight: 700;
+}
+
+/* ------- Background Color ----------- */
+.bg-sign-in {
+  background-color: #13161a;
+}
+
+.navbar-bg-color {
+  background-color: #0f0f13;
+}
+
+/* ------- Size ---------- */
+.full-screen {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* -------- Utility --------- */
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-shake-invalid {
+  animation: shake 0.25s;
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.18);
+}
+
+/* global.css */
+
+.ticker {
+  display: flex;
+  width: max-content;
+  animation: scroll-left 50s linear infinite;
+}
+
+/* 🔥 hover แล้วหยุด */
+.ticker:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
