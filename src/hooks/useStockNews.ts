@@ -35,19 +35,19 @@ async function fetchCompanyNews(symbol: string) {
 //   return res.json();
 // }
 
-async function fetchGeneralNews() {
-  const today = new Date();
-  const past = new Date();
-  past.setDate(today.getDate() - 7);
+// async function fetchGeneralNews() {
+//   const today = new Date();
+//   const past = new Date();
+//   past.setDate(today.getDate() - 7);
 
-  const from = past.toISOString().split("T")[0];
-  const to = today.toISOString().split("T")[0];
-  const res = await fetch(
-    `https://finnhub.io/api/v1/news?category=general&token=${API_KEY}&from=${from}&to=${to}`,
-  );
+//   const from = past.toISOString().split("T")[0];
+//   const to = today.toISOString().split("T")[0];
+//   const res = await fetch(
+//     `https://finnhub.io/api/v1/news?category=general&token=${API_KEY}&from=${from}&to=${to}`,
+//   );
 
-  return res.json();
-}
+//   return res.json();
+// }
 
 export async function fetchMixedNews(symbols: string[]) {
   const companyNewsList = await Promise.all(

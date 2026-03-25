@@ -20,7 +20,7 @@ export const ListStock = () => {
   const [mode, setMode] = useState<"edit" | "create">("create");
   // const [page, setPage] = useState(1);
   // const [itemsPerPage, setItemsPerPage] = useState(25);
-  const { filters, updateFilter, resetPagination } = useStockFilters();
+  const { filters, updateFilter } = useStockFilters();
   const { updateStockTransactions } = useStockTransactionList();
 
   //query
