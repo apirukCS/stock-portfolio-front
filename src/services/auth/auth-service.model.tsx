@@ -1,6 +1,6 @@
 export interface LoginResponse {
   user_id: number;
-  username: string;
+  name: string;
   access_token: string;
 }
 

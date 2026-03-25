@@ -11,11 +11,9 @@ import {
 } from "../services/target/target-service";
 import { useMixedNews } from "../hooks/useStockNews";
 import { useStockContext } from "../contexts/stock-context";
-import { useSignOut } from "../services/auth/auth-service";
 
 export const Navbar = () => {
   const { confirm, ConfirmAlertDialog } = useConfirmAlertDialog();
-  const signOut = useSignOut();
   const navigation = useNavigate();
   const username = localStorage.getItem(USER_NAME);
   const onSignOut = async () => {
@@ -23,7 +21,6 @@ export const Navbar = () => {
     if (isConfirm) {
       localStorage.clear();
       navigation("/");
-      // (await signOut).mutate;
     }
   };
   return (
@@ -46,9 +43,7 @@ export const Navbar = () => {
           </div>
         )}
         <span className="hidden md:inline-flex text-white text-sm">
-          {username && username.length > 8
-            ? username.slice(0, 8) + "..."
-            : username}
+          {username ? username.trim().split(/\s+/)[0] : "-"}
         </span>
 
         <button

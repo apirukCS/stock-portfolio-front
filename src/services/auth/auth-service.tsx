@@ -36,8 +36,10 @@ export const useSignUp = () => {
 export const useSignIn = () => {
   const navigate = useNavigate();
   return useMutation({
-    mutationFn: async (data: { username: string; password: string }) => {
-      const res = await axios.post("/auth/login", data);
+    mutationFn: async (data: { idToken: string }) => {
+      console.log("call mutationFn");
+      
+      const res = await axios.post("/auth/google-login", data);
       return res.data;
     },
     onSuccess: (e: LoginResponse) => {
@@ -80,5 +82,5 @@ export const useSignOut = async () => {
 const updateSessionAndUserOnLocalStorage = (response: LoginResponse) => {
   localStorage.setItem(ACCESS_TOKEN, response.access_token ?? "");
   localStorage.setItem(USER_ID, response.user_id ? `${response.user_id}` : "");
-  localStorage.setItem(USER_NAME, response.username ?? "");
+  localStorage.setItem(USER_NAME, response.name ?? "");
 };

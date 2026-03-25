@@ -8,6 +8,7 @@ import ListStockPage from "./pages/list-stock/ui";
 import SignUpPage from "./pages/auth/sign-up-page/ui";
 import AuthLayout from "./layouts/auth-layout";
 import MainLayout from "./layouts/main-layout";
+import { ACCESS_TOKEN } from "./utils/const/local-storage-const";
 
 const routes: RouteObject[] = [
   {
@@ -19,8 +20,12 @@ const routes: RouteObject[] = [
     element: <AuthLayout />,
     children: [
       {
-        index: true,
         path: "sign-in",
+        loader: () => {
+          const token = localStorage.getItem(ACCESS_TOKEN);
+          if (token) return redirect("/app/list-stock");
+          return null;
+        },
         Component: SignInPage,
       },
       {
