@@ -12,6 +12,7 @@ export function GoogleSignInButton() {
   };
 
   useEffect(() => {
+    window.google.accounts.id.disableAutoSelect();
     window.handleCredentialResponse = handleCredentialResponse;
     const script = document.createElement("script");
     script.src = "https://accounts.google.com/gsi/client";
@@ -30,7 +31,7 @@ export function GoogleSignInButton() {
       data-client_id="507156469512-bdnoqanvpa9mjae8jnb17rpotcchndcm.apps.googleusercontent.com"
       data-callback="handleCredentialResponse"
       data-auto_select="false"
-      data-use_one_tap="true"
+      data-use_one_tap="false"
     >
       <div
         className="g_id_signin"
