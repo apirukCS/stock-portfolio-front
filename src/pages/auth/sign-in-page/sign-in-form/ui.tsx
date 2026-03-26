@@ -91,6 +91,7 @@ export default function SignInForm() {
               theme="outline"
               shape="pill"
               width={'100%'}
+              type="standard"
               useOneTap
             />
           </GoogleOAuthProvider>
