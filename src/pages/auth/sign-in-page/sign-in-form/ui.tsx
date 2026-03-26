@@ -86,10 +86,13 @@ export default function SignInForm() {
             onSuccess={(res) => onSubmit(res?.credential ?? "")}
             size="large"
             type="standard"
-            theme="outline"
+            theme="filled_black"
             width={300}
             auto_select={false}
             useOneTap={false}
+            containerProps={{
+              className: "w-full flex justify-center bg-transparent",
+            }}
             onError={() => {
               toast.success("เกิดข้อผิดพลาดบางอย่าง", {
                 duration: 3000,
