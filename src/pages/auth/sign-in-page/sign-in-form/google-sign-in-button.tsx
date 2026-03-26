@@ -31,7 +31,6 @@ export function GoogleSignInButton() {
       data-callback="handleCredentialResponse"
       data-auto_select="false"
       data-use_one_tap="true"
-      data-prompt_parent_id="g_id_onload"
     >
       <div
         className="g_id_signin"
