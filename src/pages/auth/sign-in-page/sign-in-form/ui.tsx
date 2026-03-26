@@ -87,6 +87,7 @@ export default function SignInForm() {
             type="standard"
             theme="filled_blue"
             auto_select={false}
+            useOneTap={false}
             onError={() => {
               // toast.success("เกิดข้อผิดพลาดบางอย่าง", {
               //   duration: 3000,
