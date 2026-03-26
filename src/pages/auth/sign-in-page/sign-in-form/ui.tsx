@@ -2,7 +2,7 @@
 import "./ui.scss";
 import { useSignIn } from "../../../../services/auth/auth-service";
 // import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-// import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 // import { GoogleSignInButton } from "./google-sign-in-button";
 import { GoogleLogin } from "@react-oauth/google";
 
@@ -80,23 +80,26 @@ export default function SignInForm() {
           <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
         </div>
         {/* <GoogleSignInButton/> */}
-         {/* <GoogleOAuthProvider clientId={clientId}> */}
+        {/* <GoogleOAuthProvider clientId={clientId}> */}
+        <div className="flex justify-center w-full">
           <GoogleLogin
             onSuccess={(res) => onSubmit(res?.credential ?? "")}
             size="large"
             type="standard"
-            theme="filled_blue"
+            theme="outline"
+            width={300}
             auto_select={false}
             useOneTap={false}
             onError={() => {
-              // toast.success("เกิดข้อผิดพลาดบางอย่าง", {
-              //   duration: 3000,
-              //   position: "top-right",
-              // });
+              toast.success("เกิดข้อผิดพลาดบางอย่าง", {
+                duration: 3000,
+                position: "top-right",
+              });
             }}
             shape="rectangular"
           />
-       {/*</GoogleOAuthProvider> */}
+        </div>
+        {/*</GoogleOAuthProvider> */}
         {/* <div className="footer">
           ยังไม่มีบัญชีผู้ใช้งานใช่หรือไม่?{" "}
           <a href="/auth/sign-up">ลงทะเบียน</a>
