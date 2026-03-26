@@ -11,7 +11,8 @@
   padding: 52px 44px 44px;
   width: 30vw;
   border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6),
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.6),
     0 0 0 1px rgba(255, 255, 255, 0.04) inset;
   overflow: hidden;
 
@@ -70,6 +71,12 @@
   letter-spacing: -0.5px;
 }
 
+@media (max-width: 767.98px) {
+  .title {
+    font-size: 12px;
+  }
+}
+
 .subtitle {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.38);
@@ -87,7 +94,9 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .input-wrapper.focused {
@@ -133,7 +142,9 @@
   color: #fff;
   flex-shrink: 0;
   box-shadow: 0 4px 16px rgba(0, 200, 180, 0.35);
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
 .submit-btn:hover {
@@ -172,7 +183,10 @@
   justify-content: space-between;
   cursor: pointer;
   margin-bottom: 10px;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.15s;
   color: rgba(255, 255, 255, 0.75);
   font-size: 14px;
   font-weight: 400;
