@@ -29,8 +29,9 @@ export function GoogleSignInButton() {
       id="g_id_onload"
       data-client_id="507156469512-bdnoqanvpa9mjae8jnb17rpotcchndcm.apps.googleusercontent.com"
       data-callback="handleCredentialResponse"
-      data-auto_select="true"
+      data-auto_select="false"
       data-use_one_tap="true"
+      data-prompt_parent_id="g_id_onload"
     >
       <div
         className="g_id_signin"
