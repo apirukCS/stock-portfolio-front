@@ -1,7 +1,11 @@
 // import { useState } from "react";
 import "./ui.scss";
 import { useSignIn } from "../../../../services/auth/auth-service";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import {
+  GoogleLogin,
+  GoogleOAuthProvider,
+  useGoogleLogin,
+} from "@react-oauth/google";
 import { toast } from "react-hot-toast";
 
 export default function SignInForm() {
@@ -20,6 +24,12 @@ export default function SignInForm() {
     if (!idToken) return;
     signIg.mutate({ idToken: idToken });
   };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (tokenResponse) => onSubmit(tokenResponse.access_token),
+    onError: () => toast.error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ"),
+    flow: "implicit", // หรือ "auth-code"
+  });
 
   return (
     <div>
@@ -78,7 +88,31 @@ export default function SignInForm() {
           <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
         </div>
         {/* เมื่อ deploy ขึ้นไปแล้ว มันขยายไม่เต็มในบางที เมื่อเคยเลือก account ไปแล้ว */}
-        <div className="w-full max-w-xs mx-auto">
+        <button
+          onClick={() => googleLogin()}
+          className="w-full py-3.5 px-6 bg-white text-gray-900 rounded-2xl flex items-center justify-center gap-3 font-semibold shadow-2xl hover:shadow-3xl hover:bg-white/90 transition-all duration-300 border border-white/30 backdrop-blur-sm"
+          disabled={signIg.isPending}
+        >
+          {signIg.isPending ? (
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+          ) : (
+            <>
+              <svg
+                className="w-6 h-6 shrink-0"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a7 7 0 10-14 0 7.001 7.001 0 006 6.93V17H6v2h8v-2h-2v-.07z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              เข้าสู่ระบบด้วย Google
+            </>
+          )}
+        </button>
+        {/* <div className="w-full max-w-xs mx-auto">
           <GoogleOAuthProvider clientId={clientId}>
             <GoogleLogin
               onSuccess={(res) => onSubmit(res?.credential ?? "")}
@@ -90,13 +124,13 @@ export default function SignInForm() {
               }}
               theme="outline"
               shape="pill"
-              width={'100%'}
+              width={"100%"}
               type="standard"
               text="signin_with"
               useOneTap
             />
           </GoogleOAuthProvider>
-        </div>
+        </div> */}
         {/* <div className="footer">
           ยังไม่มีบัญชีผู้ใช้งานใช่หรือไม่?{" "}
           <a href="/auth/sign-up">ลงทะเบียน</a>
