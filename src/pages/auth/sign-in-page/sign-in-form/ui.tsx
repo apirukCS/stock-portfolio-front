@@ -1,23 +1,7 @@
 import "./ui.scss";
-import { useSignIn } from "../../../../services/auth/auth-service";
-import { useGoogleLogin } from "@react-oauth/google";
-import { toast } from "react-hot-toast";
-import logoGoogle from "../../../../assets/images/logo-google.png";
 import { GoogleSignInButton } from "./google-sign-in-button";
 
 export default function SignInForm() {
-  const signIg = useSignIn();
-  const onSubmit = async (idToken: string) => {
-    if (!idToken) return;
-    signIg.mutate({ idToken: idToken });
-  };
-
-  const googleLogin = useGoogleLogin({
-    onSuccess: (tokenResponse) => onSubmit(tokenResponse.access_token),
-    onError: () => toast.error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ"),
-    flow: "implicit",
-  });
-
   return (
     <div>
       <div className="card">
@@ -42,7 +26,7 @@ export default function SignInForm() {
           <span className="mx-4 text-white">เข้าสู่ระบบ</span>
           <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
         </div>
-        <GoogleSignInButton/>
+        <GoogleSignInButton />
         {/* <button
           onClick={() => googleLogin()}
           className="w-full py-3.5 px-6 text-sm sm:text-base bg-white text-gray-600 rounded-[40px] flex items-center justify-center gap-5 font-semibold shadow-2xl hover:shadow-3xl hover:bg-white/90 transition-all duration-300 border border-white/30 backdrop-blur-sm"
