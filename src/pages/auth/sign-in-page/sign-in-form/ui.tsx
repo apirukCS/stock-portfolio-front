@@ -1,12 +1,13 @@
 // import { useState } from "react";
 import "./ui.scss";
-// import { useSignIn } from "../../../../services/auth/auth-service";
+import { useSignIn } from "../../../../services/auth/auth-service";
 // import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 // import { toast } from "react-hot-toast";
-import { GoogleSignInButton } from "./google-sign-in-button";
+// import { GoogleSignInButton } from "./google-sign-in-button";
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function SignInForm() {
-  // const signIg = useSignIn();
+  const signIg = useSignIn();
   // const [username, setUsername] = useState("");
   // const [password, setPassword] = useState("");
   // const clientId =
@@ -17,10 +18,10 @@ export default function SignInForm() {
   //   password: false,
   // });
 
-  // const onSubmit = async (idToken: string) => {
-  //   if (!idToken) return;
-  //   signIg.mutate({ idToken: idToken });
-  // };
+  const onSubmit = async (idToken: string) => {
+    if (!idToken) return;
+    signIg.mutate({ idToken: idToken });
+  };
 
   return (
     <div>
@@ -78,22 +79,23 @@ export default function SignInForm() {
           <span className="mx-4 text-white">เข้าสู่ระบบ</span>
           <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
         </div>
-        <GoogleSignInButton/>
-        {/* <GoogleOAuthProvider clientId={clientId}>
+        {/* <GoogleSignInButton/> */}
+         {/* <GoogleOAuthProvider clientId={clientId}> */}
           <GoogleLogin
             onSuccess={(res) => onSubmit(res?.credential ?? "")}
             size="large"
             type="standard"
             theme="filled_blue"
+            auto_select={false}
             onError={() => {
-              toast.success("เกิดข้อผิดพลาดบางอย่าง", {
-                duration: 3000,
-                position: "top-right",
-              });
+              // toast.success("เกิดข้อผิดพลาดบางอย่าง", {
+              //   duration: 3000,
+              //   position: "top-right",
+              // });
             }}
             shape="rectangular"
           />
-        </GoogleOAuthProvider> */}
+       {/*</GoogleOAuthProvider> */}
         {/* <div className="footer">
           ยังไม่มีบัญชีผู้ใช้งานใช่หรือไม่?{" "}
           <a href="/auth/sign-up">ลงทะเบียน</a>
