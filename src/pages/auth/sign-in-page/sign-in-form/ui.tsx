@@ -88,7 +88,9 @@ export default function SignInForm() {
                   position: "top-right",
                 });
               }}
+              theme="outline"
               shape="pill"
+              width={'100%'}
             />
           </GoogleOAuthProvider>
         </div>
