@@ -77,18 +77,21 @@ export default function SignInForm() {
           <span className="mx-4 text-white">เข้าสู่ระบบ</span>
           <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
         </div>
-        <GoogleOAuthProvider clientId={clientId}>
-          <GoogleLogin
-            onSuccess={(res) => onSubmit(res?.credential ?? "")}
-            onError={() => {
-              toast.success("เกิดข้อผิดพลาดบางอย่าง", {
-                duration: 3000,
-                position: "top-right",
-              });
-            }}
-            shape="pill"
-          />
-        </GoogleOAuthProvider>
+        {/* เมื่อ deploy ขึ้นไปแล้ว มันขยายไม่เต็มในบางที เมื่อเคยเลือก account ไปแล้ว */}
+        <div className="w-full max-w-xs mx-auto">
+          <GoogleOAuthProvider clientId={clientId}>
+            <GoogleLogin
+              onSuccess={(res) => onSubmit(res?.credential ?? "")}
+              onError={() => {
+                toast.success("เกิดข้อผิดพลาดบางอย่าง", {
+                  duration: 3000,
+                  position: "top-right",
+                });
+              }}
+              shape="pill"
+            />
+          </GoogleOAuthProvider>
+        </div>
         {/* <div className="footer">
           ยังไม่มีบัญชีผู้ใช้งานใช่หรือไม่?{" "}
           <a href="/auth/sign-up">ลงทะเบียน</a>
