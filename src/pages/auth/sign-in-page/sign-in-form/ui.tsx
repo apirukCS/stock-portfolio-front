@@ -5,7 +5,7 @@ import { useSignIn } from "../../../../services/auth/auth-service";
 import { toast } from "react-hot-toast";
 // import { GoogleSignInButton } from "./google-sign-in-button";
 import { GoogleLogin } from "@react-oauth/google";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 export default function SignInForm() {
   const signIg = useSignIn();
@@ -93,7 +93,6 @@ export default function SignInForm() {
             useOneTap={false}
             containerProps={{
               style: {
-                width: "100%",
                 backgroundColor: "transparent",
               },
             }}
@@ -106,7 +105,7 @@ export default function SignInForm() {
             shape="rectangular"
           />
           <br/>
-          <LoginWithGoogle onIdToken={(i)=> onSubmit(i)}/>
+          {/* <LoginWithGoogle onIdToken={(i)=> onSubmit(i)}/> */}
         </div>
         {/*</GoogleOAuthProvider> */}
         {/* <div className="footer">
@@ -118,27 +117,27 @@ export default function SignInForm() {
   );
 }
 
-function LoginWithGoogle({ onIdToken }: { onIdToken: (idToken: string) => void }) {
-  useEffect(() => {
-    window.google?.accounts.id.initialize({
-      client_id: "507156469512-bdnoqanvpa9mjae8jnb17rpotcchndcm.apps.googleusercontent.com",
-      callback: (response: any) => {
-        onIdToken(response.credential); // ได้ idToken ตรงนี้
-      },
-    });
+// function LoginWithGoogle({ onIdToken }: { onIdToken: (idToken: string) => void }) {
+//   useEffect(() => {
+//     window.google?.accounts.id.initialize({
+//       client_id: "507156469512-bdnoqanvpa9mjae8jnb17rpotcchndcm.apps.googleusercontent.com",
+//       callback: (response: any) => {
+//         onIdToken(response.credential); // ได้ idToken ตรงนี้
+//       },
+//     });
 
-    // ไม่ต้องเรียก renderButton ถ้าไม่อยากเห็น iframe ปุ่ม Google
-  }, [onIdToken]);
+//     // ไม่ต้องเรียก renderButton ถ้าไม่อยากเห็น iframe ปุ่ม Google
+//   }, [onIdToken]);
 
-  const onClick = () => {
-    // Trigger Google prompt ตอนคลิกปุ่มของเราเอง
-    window.google?.accounts.id.prompt();
-  };
+//   const onClick = () => {
+//     // Trigger Google prompt ตอนคลิกปุ่มของเราเอง
+//     window.google?.accounts.id.prompt();
+//   };
 
-  return (
-    <button onClick={onClick} className="my-custom-button">
-      Login with Google
-    </button>
-  );
-}
+//   return (
+//     <button onClick={onClick} className="my-custom-button">
+//       Login with Google
+//     </button>
+//   );
+// }
 
