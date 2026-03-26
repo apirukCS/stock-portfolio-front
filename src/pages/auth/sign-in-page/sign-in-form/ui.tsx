@@ -91,7 +91,10 @@ export default function SignInForm() {
             auto_select={false}
             useOneTap={false}
             containerProps={{
-              className: "w-full flex justify-center bg-transparent",
+              style: {
+                width: "100%",
+                backgroundColor: "transparent",
+              },
             }}
             onError={() => {
               toast.success("เกิดข้อผิดพลาดบางอย่าง", {
