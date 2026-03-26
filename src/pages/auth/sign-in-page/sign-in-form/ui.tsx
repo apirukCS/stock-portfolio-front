@@ -1,26 +1,26 @@
 // import { useState } from "react";
 import "./ui.scss";
-import { useSignIn } from "../../../../services/auth/auth-service";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import { toast } from "react-hot-toast";
+// import { useSignIn } from "../../../../services/auth/auth-service";
+// import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+// import { toast } from "react-hot-toast";
 import { GoogleSignInButton } from "./google-sign-in-button";
 
 export default function SignInForm() {
-  const signIg = useSignIn();
+  // const signIg = useSignIn();
   // const [username, setUsername] = useState("");
   // const [password, setPassword] = useState("");
-  const clientId =
-    "507156469512-bdnoqanvpa9mjae8jnb17rpotcchndcm.apps.googleusercontent.com";
+  // const clientId =
+  //   "507156469512-bdnoqanvpa9mjae8jnb17rpotcchndcm.apps.googleusercontent.com";
   // const [idToken, setIdToken] = useState("");
   // const [focus, setFocus] = useState({
   //   username: false,
   //   password: false,
   // });
 
-  const onSubmit = async (idToken: string) => {
-    if (!idToken) return;
-    signIg.mutate({ idToken: idToken });
-  };
+  // const onSubmit = async (idToken: string) => {
+  //   if (!idToken) return;
+  //   signIg.mutate({ idToken: idToken });
+  // };
 
   return (
     <div>
