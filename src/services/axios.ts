@@ -2,7 +2,7 @@ import axios from "axios";
 import { ACCESS_TOKEN } from "../utils/const/local-storage-const";
 
 export const api = axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: "https://stock-portfolio-prod.onrender.com/api",
 });
 
 api.interceptors.request.use(
