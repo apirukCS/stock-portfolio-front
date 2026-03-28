@@ -1,23 +1,19 @@
-// import { useState } from "react";
 import "./ui.scss";
 import { useSignIn } from "../../../../services/auth/auth-service";
-// import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { toast } from "react-hot-toast";
-// import { GoogleSignInButton } from "./google-sign-in-button";
 import { GoogleLogin } from "@react-oauth/google";
-// import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function SignInForm() {
   const signIg = useSignIn();
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-  // const clientId =
-  //   "507156469512-bdnoqanvpa9mjae8jnb17rpotcchndcm.apps.googleusercontent.com";
-  // const [idToken, setIdToken] = useState("");
-  // const [focus, setFocus] = useState({
-  //   username: false,
-  //   password: false,
-  // });
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [cardWidth, setCardWidth] = useState(320);
+
+  useEffect(() => {
+    if (cardRef.current) {
+      setCardWidth(cardRef.current.offsetWidth);
+    }
+  }, []);
 
   const onSubmit = async (idToken: string) => {
     if (!idToken) return;
@@ -26,118 +22,57 @@ export default function SignInForm() {
 
   return (
     <div>
-      <div className="card">
-        <h1 className="title">บันทึกการซื้อขายหุ้น</h1>
+      <div className="card" ref={cardRef}>
+        <h1
+          className="
+  text-[28px] font-semibold text-white 
+  text-center 
+  leading-[1.1] 
+  mb-2.5 
+  tracking-[-0.5px]
+  sm:text-[36px]
+"
+        >
+          บันทึกการซื้อขายหุ้น
+        </h1>
         <p className="subtitle">
-          บันทึกการซื้อขายหุ้น พร้อมดูผลรวมพอร์ตและข่าวสารหุ้นของคุณ
+          จัดการพอร์ตพร้อมดูข่าวสารหุ้นและสรุปกำไร/ขาดทุน
+          เพื่อใช้เป็นตัวช่วยการยื่นภาษีและจัดทำบัญชีของคุณ
         </p>
-        {/* <div className={`input-wrapper ${focus.username ? "focused" : ""}`}>
-          <div className="input-inner">
-            <span className="input-label">ชื่อผู้ใช้งาน</span>
-            <input
-              className="input-field"
-              type="email"
-              value={username}
-              placeholder="กรุณากรอกชื่อผู้ใช้งาน"
-              onChange={(e) => setUsername(e.target.value)}
-              onFocus={() => setFocus({ ...focus, username: true })}
-              onBlur={() => setFocus({ ...focus, username: false })}
-            />
-          </div>
-        </div> */}
-        {/* <div>
-          <div
-            className={`input-wrapper mb-0 ${focus.password ? "focused" : ""}`}
-          >
-            <div className="input-inner">
-              <span className="input-label">รหัสผ่าน</span>
-              <input
-                className="input-field"
-                type="password"
-                value={password}
-                placeholder="กรุณากรอกรหัสผ่าน"
-                onChange={(e) => setPassword(e.target.value)}
-                onFocus={() => setFocus({ ...focus, password: true })}
-                onBlur={() => setFocus({ ...focus, password: false })}
-              />
-            </div>
-          </div>
-        </div> */}
-        {/* <br></br>
-        <div className="pb-4">
-          <AppButton
-            type="submit"
-            bgColor="#ffffff"
-            color="#000000"
-            onClick={() => onSubmit()}
-            isLoading={signIg.isPending}
-          >
-            <div className="fw-semibold">เข้าสู่ระบบ</div>
-          </AppButton>
-        </div> */}
         <div className="flex items-center my-6">
           <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
           <span className="mx-4 text-white">เข้าสู่ระบบ</span>
           <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
         </div>
-        {/* <GoogleSignInButton/> */}
-        {/* <GoogleOAuthProvider clientId={clientId}> */}
-        <div className="flex justify-center w-full">
-          <GoogleLogin
-            onSuccess={(res) => onSubmit(res?.credential ?? "")}
-            size="large"
-            type="standard"
-            theme="outline"
-            width={300}
-            auto_select={false}
-            useOneTap={false}
-            containerProps={{
-              style: {
-                backgroundColor: "transparent",
-              },
-            }}
-            onError={() => {
-              toast.success("เกิดข้อผิดพลาดบางอย่าง", {
-                duration: 3000,
-                position: "top-right",
-              });
-            }}
-            shape="rectangular"
-          />
-          <br/>
-          {/* <LoginWithGoogle onIdToken={(i)=> onSubmit(i)}/> */}
+        <div className="w-full flex justify-center">
+          <div className="w-full">
+            <GoogleLogin
+              onSuccess={(res) => onSubmit(res?.credential ?? "")}
+              size="large"
+              type="standard"
+              theme="outline"
+              width={Math.min(cardWidth - 32, 400)}
+              auto_select={false}
+              useOneTap={false}
+              containerProps={{
+                style: {
+                  backgroundColor: "transparent",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                },
+              }}
+              onError={() => {
+                toast.error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ", {
+                  duration: 3000,
+                  position: "top-right",
+                });
+              }}
+              shape="rectangular"
+            />
+          </div>
         </div>
-        {/*</GoogleOAuthProvider> */}
-        {/* <div className="footer">
-          ยังไม่มีบัญชีผู้ใช้งานใช่หรือไม่?{" "}
-          <a href="/auth/sign-up">ลงทะเบียน</a>
-        </div> */}
       </div>
     </div>
   );
 }
-
-// function LoginWithGoogle({ onIdToken }: { onIdToken: (idToken: string) => void }) {
-//   useEffect(() => {
-//     window.google?.accounts.id.initialize({
-//       client_id: "507156469512-bdnoqanvpa9mjae8jnb17rpotcchndcm.apps.googleusercontent.com",
-//       callback: (response: any) => {
-//         onIdToken(response.credential); // ได้ idToken ตรงนี้
-//       },
-//     });
-
-//     // ไม่ต้องเรียก renderButton ถ้าไม่อยากเห็น iframe ปุ่ม Google
-//   }, [onIdToken]);
-
-//   const onClick = () => {
-//     // Trigger Google prompt ตอนคลิกปุ่มของเราเอง
-//     window.google?.accounts.id.prompt();
-//   };
-
-//   return (
-//     <button onClick={onClick} className="my-custom-button">
-//       Login with Google
-//     </button>
-//   );
-// }
-
