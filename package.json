@@ -7,11 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "postbuild": "react-snap"
-  },
-  "reactSnap": {
-    "inlineCss": true
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/styled": "^11.14.1",
@@ -37,7 +33,6 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "postcss": "^8.5.6",
-    "react-snap": "^1.23.0",
     "sass-embedded": "^1.97.3",
     "tailwindcss": "^3.4.19",
     "typescript": "~5.9.3",
