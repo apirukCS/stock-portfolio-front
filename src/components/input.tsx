@@ -51,6 +51,7 @@ export function Input({
       {type === "currency" ? (
         <NumericFormat
           value={value}
+          inputMode="decimal"
           thousandSeparator
           placeholder={placeholder}
           decimalScale={2}
