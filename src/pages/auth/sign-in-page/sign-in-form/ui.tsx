@@ -68,7 +68,7 @@ export default function SignInForm() {
                   position: "top-right",
                 });
               }}
-              shape="rectangular"
+              shape="pill"
             />
           </div>
         </div>
