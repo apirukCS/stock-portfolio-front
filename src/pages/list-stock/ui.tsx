@@ -19,13 +19,14 @@ const ListStockPage = () => {
           </StockTransactionListProvider>
         </div>
         <div className="hidden md:block w-[300px] flex-none bg-[#0F0F13] rounded-[12px]">
+          {/* ฉันต้องการปุ่มหุบ panel filter */}
           <RightPanelFilter />
         </div>
       </div>
 
       <button
         onClick={() => setOpenFilter(!openFilter)}
-        className="md:hidden fixed bottom-20 z-50 right-6 w-[56px] h-[56px] rounded-full bg-[#7949FF] text-white shadow-lg flex items-center justify-center text-xl"
+        className="md:hidden fixed bottom-20 z-50 right-6 w-[50px] h-[50px] rounded-full bg-[#7949FF] text-white shadow-lg flex items-center justify-center text-xl"
       >
         <img src={filterIcon} alt="filter-icon.svg" />
       </button>

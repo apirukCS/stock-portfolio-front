@@ -190,7 +190,7 @@ export default function StockTable(props: StockTableProps) {
           </tbody>
         </table>
         {props.isLoadingSource &&(
-          <div className="absolute top-5 inset-0 flex justify-center">
+          <div className="absolute top-9 inset-0 flex justify-center">
             <CircleLoader />
           </div>
         )}

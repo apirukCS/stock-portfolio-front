@@ -38,7 +38,7 @@ export const Navbar = () => {
       {/* ขวา */}
       <div className="flex items-center gap-3 flex-shrink-0">
         {username && (
-          <div className="w-[30px] h-[30px] rounded-full bg-[#7949FF] flex items-center justify-center text-white font-bold">
+          <div className="hidden sm:flex w-[30px] h-[30px] rounded-full bg-[#7949FF]  items-center justify-center text-white font-bold">
             {username.charAt(0).toUpperCase()}
           </div>
         )}

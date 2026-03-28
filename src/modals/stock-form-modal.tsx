@@ -87,13 +87,13 @@ export default function StockFormModal({
   //fn
   const handleSubmit = () => {
     console.log("vat ", vat, commission);
-    
+
     const newErrors = {
       stockId: !stockId,
       typeId: !typeId,
-      price: !price && price != '0',
-      vat: !vat && vat != '0',
-      commission: !commission && commission != '0',
+      price: !price && price != "0",
+      vat: !vat && vat != "0",
+      commission: !commission && commission != "0",
       exchangeRate:
         [currencyPrice, currencyVat, currencyCommission].includes("USD") &&
         !exchangeRate,
@@ -152,7 +152,10 @@ export default function StockFormModal({
   return (
     <div style={overlayStyle} onClick={onCloseModal}>
       <div
-        className="flex flex-col gap-2 w-full max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl"
+        className="
+    flex flex-col gap-2 w-full max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl
+    max-h-[calc(100vh-80px)] overflow-y-auto
+  "
         style={modalStyle}
         onClick={(e) => e.stopPropagation()}
       >
@@ -192,6 +195,7 @@ export default function StockFormModal({
           onChange={(option) => setStockId(option?.id)}
           onCreateConfirm={(e) => handleCreateStock(e)}
           isError={errors.stockId}
+          isLoadingCreating={updateStock.isPending || createStock.isPending}
           onEditOptionConfirm={(option) =>
             updateStock.mutate({ id: option.id, name: option.name })
           }
@@ -272,13 +276,15 @@ export default function StockFormModal({
           placeholder="เหตุผล"
         />
 
-        <AppButton
-          className="mt-4"
-          onClick={handleSubmit}
-          isLoading={createStockTransaction.isPending}
-        >
-          <div className="fw-semibold text-white">บันทึก</div>
-        </AppButton>
+        <div className="h-[40px]">
+          <AppButton
+            className="mt-4"
+            onClick={handleSubmit}
+            isLoading={createStockTransaction.isPending || editStockTransaction.isPending}
+          >
+            <div className="fw-semibold text-white">บันทึก</div>
+          </AppButton>
+        </div>
       </div>
     </div>
   );
@@ -290,11 +296,12 @@ const overlayStyle: CSSProperties = {
   left: 0,
   width: "100%",
   height: "100%",
-  // background: "rgba(0,0,0,0.3)",
   display: "flex",
-  alignItems: "center",
+  alignItems: "center", // ✅ กลางจอเหมือนเดิม
   justifyContent: "center",
   zIndex: "999",
+  padding: "20px",
+  // overflowY: 'auto',
 };
 const modalStyle: CSSProperties = {
   padding: "30px",
@@ -303,6 +310,10 @@ const modalStyle: CSSProperties = {
   borderWidth: "1.3px",
   backgroundColor: "#0F0F13",
   boxShadow: "0 10px 40px rgba(0,0,0,0.6), 30px rgba(255,255,255,0.06)",
+
+  // ทำให้ modal ตัวนี้ scroll ได้เองเมื่อเนื้อหาล้น
+  maxHeight: "calc(100vh - 80px)", // หัก top / bottom ด้านนอก
+  overflowY: "auto",
 };
 
 type CurrencySwitchProps = {

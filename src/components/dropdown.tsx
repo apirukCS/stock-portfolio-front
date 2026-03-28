@@ -191,7 +191,7 @@ const Dropdown = ({
             <li className="flex items-center justify-center h-full">
               <div className="flex items-center gap-2 text-sm text-gray-400">
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                <span>กำลังเพิ่ม...</span>
+                <span>กำลังโหลด...</span>
               </div>
             </li>
           )}
