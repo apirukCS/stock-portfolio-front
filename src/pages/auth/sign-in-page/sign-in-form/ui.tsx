@@ -45,7 +45,7 @@ export default function SignInForm() {
           <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
         </div>
         <div className="w-full flex justify-center">
-          <div className="w-full">
+          <div className="w-full" style={{ colorScheme: "light" }}>
             <GoogleLogin
               onSuccess={(res) => onSubmit(res?.credential ?? "")}
               size="large"
