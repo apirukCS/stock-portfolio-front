@@ -81,15 +81,15 @@ export function StockNewsTicker() {
           ได้เลย!
         </div>
       );
+    } else {
+      return (
+        <div className="text-white text-sm flex items-center gap-3">
+          📈 ติดตามข่าวสารหุ้น {symbols.slice(0, 3).join(", ")}
+          {symbols.length > 3 && ` และ ${symbols.length - 3} หุ้นอื่นๆ`}
+          <span className="text-yellow-400">⏳ กำลังอัพเดท...</span>
+        </div>
+      );
     }
-
-    return (
-      <div className="text-white text-sm flex items-center gap-3">
-        📈 ติดตามข่าวสารหุ้น {symbols.slice(0, 3).join(", ")}
-        {symbols.length > 3 && ` และ ${symbols.length - 3} หุ้นอื่นๆ`}
-        <span className="text-yellow-400">⏳ กำลังอัพเดท...</span>
-      </div>
-    );
   };
 
   if (isLoading) {
