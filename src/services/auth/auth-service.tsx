@@ -51,7 +51,7 @@ export const useSignIn = () => {
       navigate("/app/list-stock");
     },
     onError: () => {
-      toast.error("ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", {
+      toast.error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ", {
         duration: 3000,
         position: "top-right",
       });

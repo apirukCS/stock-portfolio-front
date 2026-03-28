@@ -51,7 +51,7 @@ export default function SignInForm() {
               size="large"
               type="standard"
               theme="outline"
-              width={Math.min(cardWidth - 32, 400)}
+              width={Math.min(cardWidth - 32, 320)}
               auto_select={false}
               useOneTap={false}
               containerProps={{
