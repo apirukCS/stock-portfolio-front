@@ -6,6 +6,7 @@ import type {
   StockTransactionDataTable,
   StockTransactionSummary,
 } from "./stock-transaction.model";
+import { EXCHANGE_RATE } from "../../utils/const/local-storage-const";
 
 const path = "/stock-transactions";
 
@@ -63,6 +64,7 @@ export const useCreateStockTransaction = (resetPagination?: () => void) => {
   return useMutation({
     mutationFn: async (payload: CreateStockTransactionRequest) => {
       const res = await axios.post(path, payload);
+      localStorage.setItem(EXCHANGE_RATE, payload.exchange_rate ?? "");
       return res.data;
     },
     onSuccess: () => {

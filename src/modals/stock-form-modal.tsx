@@ -19,6 +19,7 @@ import type {
 import { useStockFilters } from "../contexts/stock-filter-context";
 import DateTimePicker from "../components/date-time-picker";
 import dayjs from "dayjs";
+import { EXCHANGE_RATE } from "../utils/const/local-storage-const";
 
 type ModalProps = {
   open: boolean;
@@ -34,6 +35,8 @@ export default function StockFormModal({
   stockTransaction,
 }: ModalProps) {
   if (!open) return null;
+
+  const isCreate = mode == "create";
 
   const [errors, setErrors] = useState({
     stockId: false,
@@ -55,7 +58,7 @@ export default function StockFormModal({
   //state in page
   const now = dayjs().format("YYYY-MM-DDTHH:mm:ss");
   const [date, setDate] = useState<string | null>(
-    mode === "create" ? now : (stockTransaction?.transaction_date ?? now),
+    isCreate ? (stockTransaction?.transaction_date ?? now) : now,
   );
   const [stockId, setStockId] = useState<number | null | undefined>(
     stockTransaction?.stock_id,
@@ -79,7 +82,9 @@ export default function StockFormModal({
     (stockTransaction?.commission_unit as "บาท" | "USD") ?? "USD",
   );
   const [exchangeRate, setExchangeRate] = useState(
-    stockTransaction?.exchange_rate,
+    isCreate
+      ? localStorage.getItem(EXCHANGE_RATE)
+      : stockTransaction?.exchange_rate,
   );
   const [vat, setVat] = useState(stockTransaction?.vat);
   const [commission, setCommission] = useState(stockTransaction?.commission);
@@ -127,7 +132,7 @@ export default function StockFormModal({
       transaction_date: date,
     };
 
-    if (mode == "create") {
+    if (isCreate) {
       createStockTransaction.mutate(payload, { onSuccess: onCloseModal });
     } else {
       editStockTransaction.mutate(
@@ -167,7 +172,7 @@ export default function StockFormModal({
       >
         <div className="flex items-center justify-between border-b border-[#1E1E24] pb-3">
           <h2 className="text-gray-200 text-lg font-semibold">
-            {mode === "edit" ? "แก้ไขรายการหุ้น" : "เพิ่มรายการหุ้น"}
+            {isCreate ? "เพิ่มรายการหุ้น" : "แก้ไขรายการหุ้น"}
           </h2>
 
           <button
@@ -191,7 +196,7 @@ export default function StockFormModal({
           </button>
         </div>
 
-        <DateTimePicker value={date} onChange={(e)=> setDate(e)} />
+        <DateTimePicker value={date} onChange={(e) => setDate(e)} />
 
         <Dropdown
           required
