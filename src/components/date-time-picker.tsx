@@ -68,11 +68,11 @@ export default function DateTimePicker({
 
   return (
     <div className="relative w-full">
-      <label className="text-[#9B9BAF] text-sm">วันที่และเวลา</label>
+      <label className="text-[#9B9BAF]">วันที่และเวลา</label>
 
       <button
         onClick={() => setOpen(!open)}
-        className={`w-full px-4 text-sm py-2 rounded-[8px] border border-[#1E1E24] flex justify-between items-center ${
+        className={`w-full px-4 py-2 rounded-[8px] border border-[#1E1E24] flex justify-between items-center ${
           selected ? "text-white" : "text-gray-700"
         }`}
       >
