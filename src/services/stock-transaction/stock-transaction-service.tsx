@@ -122,16 +122,16 @@ export const useDeleteStockTransaction = () => {
 };
 
 //------------------  mock --------------//
-export const mockTransaction = (): CreateStockTransactionRequest => {
-  return {
-    stock_id: Math.random() < 0.3 ? 36 : Math.random() < 0.8 ? 37 : 38,
-    price: `${Math.random() * 1000}`,
-    price_unit: Math.random() > 0.5 ? "บาท" : "USD",
-    vat: `${Math.random() * 10}`,
-    vat_unit: Math.random() > 0.5 ? "บาท" : "USD",
-    commission: `${Math.random() * 5}`,
-    commission_unit: Math.random() > 0.5 ? "บาท" : "USD",
-    exchange_rate: `${32 + Math.random()}`,
-    transaction_type: Math.random() > 0.5 ? "BUY" : "SELL",
-  };
-};
+// export const mockTransaction = (): CreateStockTransactionRequest => {
+//   return {
+//     stock_id: Math.random() < 0.3 ? 36 : Math.random() < 0.8 ? 37 : 38,
+//     price: `${Math.random() * 1000}`,
+//     price_unit: Math.random() > 0.5 ? "บาท" : "USD",
+//     vat: `${Math.random() * 10}`,
+//     vat_unit: Math.random() > 0.5 ? "บาท" : "USD",
+//     commission: `${Math.random() * 5}`,
+//     commission_unit: Math.random() > 0.5 ? "บาท" : "USD",
+//     exchange_rate: `${32 + Math.random()}`,
+//     transaction_type: Math.random() > 0.5 ? "BUY" : "SELL",
+//   };
+// };
