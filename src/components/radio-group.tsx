@@ -6,14 +6,14 @@ interface Option {
 }
 
 interface RadioGroupProps {
-  // selectedId: number | null;
+  selectedId: number | null;
   label: string;
   options: Option[];
   onChange?: (id: number) => void;
 }
 
-export function RadioGroup({ label, options, onChange }: RadioGroupProps) {
-  const [selected, setSelected] = React.useState<number | null>(1);
+export function RadioGroup({ label, options, onChange, selectedId }: RadioGroupProps) {
+  const [selected, setSelected] = React.useState<number | null>(selectedId);
 
   const handleChange = (value: number) => {
     setSelected(value);

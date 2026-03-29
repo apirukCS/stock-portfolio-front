@@ -19,7 +19,6 @@ const ListStockPage = () => {
           </StockTransactionListProvider>
         </div>
         <div className="hidden md:block w-[300px] flex-none bg-[#0F0F13] rounded-[12px]">
-          {/* ฉันต้องการปุ่มหุบ panel filter */}
           <RightPanelFilter />
         </div>
       </div>
@@ -34,10 +33,10 @@ const ListStockPage = () => {
       {openFilter && (
         <div className="md:hidden fixed inset-0 z-40 flex">
           <div
-            className="absolute inset-0 bg-black/50"
+            className="absolute inset-0"
             onClick={() => setOpenFilter(false)}
           />
-          <div className="ml-auto w-[300px] h-full bg-[#0F0F13] p-4 relative">
+          <div className="ml-auto w-[300px] h-full bg-[#0F0F13] relative">
             <RightPanelFilter />
           </div>
         </div>

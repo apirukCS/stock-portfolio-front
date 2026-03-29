@@ -12,10 +12,12 @@ import { useState } from "react";
 import { useStockFilters } from "../../../contexts/stock-filter-context";
 
 const RightPanelFilter = () => {
-  const { updateFilter } = useStockFilters();
+  const { updateFilter, filters } = useStockFilters();
   const updateStock = useUpdateStock();
 
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedId, setSelectedId] = useState<number | null>(
+    filters.stockId ?? null,
+  );
   const { data: stockOptions = [] } = useGetStocks();
 
   const Header = () => {
@@ -52,6 +54,12 @@ const RightPanelFilter = () => {
     updateFilter({ isDisplaySummaryAll: isDisplaySummaryAll });
   };
 
+  const transactionTypeSelected = () => {
+    let ids: number[] = [];
+    filters.transactionTypes?.forEach((e) => ids.push(e === "BUY" ? 1 : 2));
+    return ids;
+  };
+
   return (
     <div className="flex flex-col justify-between h-full">
       <div className="flex flex-col">
@@ -70,6 +78,8 @@ const RightPanelFilter = () => {
             }
           />
           <DateRangePicker
+            startDate={filters.startDate}
+            endDate={filters.endDate}
             onChange={({ start, end }) => onChangeDateRange(start, end)}
           />
           <CheckboxGroup
@@ -79,7 +89,7 @@ const RightPanelFilter = () => {
               { id: 2, value: "ขาย" },
             ]}
             onChange={(ids) => onChangeTransactionTypes(ids)}
-            selectedIds={[1, 2]}
+            selectedIds={transactionTypeSelected()}
           />
 
           <RadioGroup
@@ -88,6 +98,7 @@ const RightPanelFilter = () => {
               { id: 1, value: "แสดงตามข้อมูลทั้งหมด" },
               { id: 2, value: "แสดงตามรายการในตาราง" },
             ]}
+            selectedId={filters.isDisplaySummaryAll ? 1 : 2}
             onChange={(e) => onChangeSummaryDisplay(e === 1 ? true : false)}
           />
         </div>

@@ -17,6 +17,8 @@ import type {
   StockTransaction,
 } from "../services/stock-transaction/stock-transaction.model";
 import { useStockFilters } from "../contexts/stock-filter-context";
+import DateTimePicker from "../components/date-time-picker";
+import dayjs from "dayjs";
 
 type ModalProps = {
   open: boolean;
@@ -51,6 +53,10 @@ export default function StockFormModal({
   const updateStock = useUpdateStock();
 
   //state in page
+  const now = dayjs().format("YYYY-MM-DDTHH:mm:ss");
+  const [date, setDate] = useState<string | null>(
+    mode === "create" ? now : (stockTransaction?.transaction_date ?? now),
+  );
   const [stockId, setStockId] = useState<number | null | undefined>(
     stockTransaction?.stock_id,
   );
@@ -86,8 +92,6 @@ export default function StockFormModal({
 
   //fn
   const handleSubmit = () => {
-    console.log("vat ", vat, commission);
-
     const newErrors = {
       stockId: !stockId,
       typeId: !typeId,
@@ -120,6 +124,7 @@ export default function StockFormModal({
       commission_unit: currencyCommission,
       exchange_rate: exchange,
       reason: reason,
+      transaction_date: date,
     };
 
     if (mode == "create") {
@@ -137,6 +142,7 @@ export default function StockFormModal({
   };
 
   const onCloseModal = () => {
+    setDate("");
     setStockId(null);
     setTypeId(null);
     setPrice("");
@@ -184,6 +190,8 @@ export default function StockFormModal({
             </svg>
           </button>
         </div>
+
+        <DateTimePicker value={date} onChange={(e)=> setDate(e)} />
 
         <Dropdown
           required
@@ -280,7 +288,9 @@ export default function StockFormModal({
           <AppButton
             className="mt-4"
             onClick={handleSubmit}
-            isLoading={createStockTransaction.isPending || editStockTransaction.isPending}
+            isLoading={
+              createStockTransaction.isPending || editStockTransaction.isPending
+            }
           >
             <div className="fw-semibold text-white">บันทึก</div>
           </AppButton>

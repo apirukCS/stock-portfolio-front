@@ -11,6 +11,7 @@ import {
 } from "../services/target/target-service";
 import { useMixedNews } from "../hooks/useStockNews";
 import { useStockContext } from "../contexts/stock-context";
+import { googleLogout } from "@react-oauth/google";
 
 export const Navbar = () => {
   const { confirm, ConfirmAlertDialog } = useConfirmAlertDialog();
@@ -20,6 +21,7 @@ export const Navbar = () => {
     const isConfirm = await confirm("คุณต้องการออกจากระบบใช่หรือไม่");
     if (isConfirm) {
       localStorage.clear();
+      googleLogout();
       navigation("/");
     }
   };
@@ -74,7 +76,7 @@ export function StockNewsTicker() {
   const getFallbackContent = () => {
     if (!stocks.length) {
       return (
-        <div className="text-white text-sm flex items-center gap-2">
+        <div className="text-white text-sm flex items-center gap-2 text-nowrap">
           👋 สวัสดีคุณ {username} เริ่มต้นด้วยการเพิ่มหุ้นที่คุณซื้อขาย
           โดยการกดปุ่ม{" "}
           <span className="text-yellow-400 font-bold">เพิ่มรายการหุ้น</span>
@@ -83,7 +85,7 @@ export function StockNewsTicker() {
       );
     } else {
       return (
-        <div className="text-white text-sm flex items-center gap-3">
+        <div className="text-white text-sm flex items-center gap-3 text-nowrap">
           📈 ติดตามข่าวสารหุ้น {symbols.slice(0, 3).join(", ")}
           {symbols.length > 3 && ` และ ${symbols.length - 3} หุ้นอื่นๆ`}
           <span className="text-yellow-400">⏳ กำลังอัพเดท...</span>
@@ -114,7 +116,7 @@ export function StockNewsTicker() {
     return (
       <div className="overflow-hidden w-full bg-black py-2">
         <div className="flex gap-6">
-          <div className="text-white text-sm flex items-center gap-3">
+          <div className="text-white text-sm flex items-center gap-3 text-nowrap">
             ไม่พบข่าวสารสำหรับหุ้น: {symbols.slice(0, 2).join(", ")}
             {symbols.length > 2 && ` และ ${symbols.length - 2} หุ้นอื่นๆ`}
             <br />

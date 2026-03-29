@@ -1,4 +1,5 @@
 export interface CreateStockTransactionRequest {
+  transaction_date: string | null;
   stock_id: number;
   transaction_type: "BUY" | "SELL";
   price: string;
