@@ -67,7 +67,7 @@ export default function DateTimePicker({
   };
 
   return (
-    <div className="relative w-full max-w-xs">
+    <div className="relative w-full">
       <label className="text-[#9B9BAF] text-sm">วันที่และเวลา</label>
 
       <button
