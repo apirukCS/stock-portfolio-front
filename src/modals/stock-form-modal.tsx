@@ -58,7 +58,7 @@ export default function StockFormModal({
   //state in page
   const now = dayjs().format("YYYY-MM-DDTHH:mm:ss");
   const [date, setDate] = useState<string | null>(
-    isCreate ? (stockTransaction?.transaction_date ?? now) : now,
+    isCreate ? now : (stockTransaction?.transaction_date ?? now),
   );
   const [stockId, setStockId] = useState<number | null | undefined>(
     stockTransaction?.stock_id,
