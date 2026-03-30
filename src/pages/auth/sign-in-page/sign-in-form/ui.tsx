@@ -2,7 +2,7 @@ import "./ui.scss";
 import { useSignIn } from "../../../../services/auth/auth-service";
 import { toast } from "react-hot-toast";
 import { GoogleLogin } from "@react-oauth/google";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function SignInForm() {
   const signIg = useSignIn();
@@ -19,6 +19,35 @@ export default function SignInForm() {
     if (!idToken) return;
     signIg.mutate({ idToken: idToken });
   };
+
+  const googleButton = useMemo(() => {
+    return (
+      <GoogleLogin
+        onSuccess={(res) => onSubmit(res?.credential ?? "")}
+        size="large"
+        type="standard"
+        theme="outline"
+        width={Math.min(cardWidth - 48, 400)}
+        auto_select={false}
+        useOneTap={false}
+        containerProps={{
+          style: {
+            backgroundColor: "transparent",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          },
+        }}
+        onError={() => {
+          toast.error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ", {
+            duration: 3000,
+            position: "top-right",
+          });
+        }}
+        shape="pill"
+      />
+    );
+  }, [cardWidth, onSubmit]);
 
   return (
     <div>
@@ -46,30 +75,8 @@ export default function SignInForm() {
         </div>
         <div className="w-full flex justify-center">
           <div className="w-full" style={{ colorScheme: "light" }}>
-            <GoogleLogin
-              onSuccess={(res) => onSubmit(res?.credential ?? "")}
-              size="large"
-              type="standard"
-              theme="outline"
-              width={Math.min(cardWidth - 48, 400)}
-              auto_select={false}
-              useOneTap={false}
-              containerProps={{
-                style: {
-                  backgroundColor: "transparent",
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                },
-              }}
-              onError={() => {
-                toast.error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ", {
-                  duration: 3000,
-                  position: "top-right",
-                });
-              }}
-              shape="pill"
-            />
+            {/* เมื่อปุ่มมันกำลังโหลด และโหลดเสร็จแล้วมันทำให้มันดูเหมือนมันกระพริบ */}
+            {googleButton}
           </div>
         </div>
       </div>
