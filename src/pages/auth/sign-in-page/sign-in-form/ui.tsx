@@ -75,7 +75,6 @@ export default function SignInForm() {
         </div>
         <div className="w-full flex justify-center">
           <div className="w-full" style={{ colorScheme: "light" }}>
-            {/* เมื่อปุ่มมันกำลังโหลด และโหลดเสร็จแล้วมันทำให้มันดูเหมือนมันกระพริบ */}
             {googleButton}
           </div>
         </div>
