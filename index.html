@@ -2,7 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo-app.png" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/src/assets/images/logo-app.png"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <meta
@@ -16,6 +20,18 @@
     />
 
     <title>บันทึกการซื้อขายหุ้น | Stock Portfolio Tracker</title>
+    <meta property="og:site_name" content="บันทึกการซื้อขายหุ้น" />
+    <meta name="application-name" content="บันทึกการซื้อขายหุ้น" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "บันทึกการซื้อขายหุ้น",
+        "url": "https://stock-portfolio-th.vercel.app"
+      }
+    </script>
+
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <!-- Google tag (gtag.js) -->
     <script
@@ -33,7 +49,7 @@
     </script>
 
     <!-- Google Ads -->
-     <meta name="google-adsense-account" content="ca-pub-2204845852681738">
+    <meta name="google-adsense-account" content="ca-pub-2204845852681738" />
   </head>
   <body>
     <div id="root"></div>
