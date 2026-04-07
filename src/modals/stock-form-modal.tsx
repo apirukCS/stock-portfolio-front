@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import Dropdown from "../components/dropdown";
 import { Input } from "../components/input";
 import { Textarea } from "../components/text-area";
@@ -19,7 +19,7 @@ import type {
 import { useStockFilters } from "../contexts/stock-filter-context";
 import DateTimePicker from "../components/date-time-picker";
 import dayjs from "dayjs";
-import { EXCHANGE_RATE } from "../utils/const/local-storage-const";
+import { useGetExChangeRate } from "../services/exchange-rate/exchange-rate-service";
 
 type ModalProps = {
   open: boolean;
@@ -54,6 +54,7 @@ export default function StockFormModal({
   const editStockTransaction = useEditStockTransaction();
   const createStock = useCreateStock();
   const updateStock = useUpdateStock();
+  const { data: usdRate } = useGetExChangeRate();
 
   //state in page
   const now = dayjs().format("YYYY-MM-DDTHH:mm:ss");
@@ -81,10 +82,9 @@ export default function StockFormModal({
   const [currencyCommission, setCurrencyCommission] = useState<"บาท" | "USD">(
     (stockTransaction?.commission_unit as "บาท" | "USD") ?? "USD",
   );
+
   const [exchangeRate, setExchangeRate] = useState(
-    isCreate
-      ? localStorage.getItem(EXCHANGE_RATE)
-      : stockTransaction?.exchange_rate,
+    isCreate ? usdRate?.mid_rate : stockTransaction?.exchange_rate,
   );
   const [vat, setVat] = useState(stockTransaction?.vat);
   const [commission, setCommission] = useState(stockTransaction?.commission);
@@ -94,6 +94,12 @@ export default function StockFormModal({
     { id: 1, name: "ซื้อ" },
     { id: 2, name: "ขาย" },
   ];
+
+  useEffect(() => {
+    if (isCreate) {
+      setExchangeRate(usdRate?.mid_rate);
+    }
+  }, [usdRate]);
 
   //fn
   const handleSubmit = () => {
