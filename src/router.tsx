@@ -23,7 +23,7 @@ const routes: RouteObject[] = [
         path: "sign-in",
         loader: () => {
           const token = localStorage.getItem(ACCESS_TOKEN);
-          if (token) return redirect("/app/list-stock");
+          if (token) return redirect("/stock/list");
           return null;
         },
         Component: SignInPage,
@@ -36,11 +36,11 @@ const routes: RouteObject[] = [
     ],
   },
   {
-    path: "/app",
+    path: "/stock",
     element: <MainLayout />,
     children: [
       {
-        path: "list-stock",
+        path: "list",
         Component: ListStockPage,
       },
     ],

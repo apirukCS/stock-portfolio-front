@@ -22,7 +22,7 @@ export const useSignUp = () => {
         position: "top-right",
       });
       updateSessionAndUserOnLocalStorage(e);
-      navigate("/app/list-stock");
+      navigate("/stock/list");
     },
     onError: (err: any) => {
       toast.error(err || "เกิดข้อผิดพลาดบางอย่าง", {
@@ -48,7 +48,7 @@ export const useSignIn = () => {
         position: "top-right",
       });
       updateSessionAndUserOnLocalStorage(e);
-      navigate("/app/list-stock");
+      navigate("/stock/list");
     },
     onError: () => {
       toast.error("เกิดข้อผิดพลาดในการเข้าสู่ระบบ", {
