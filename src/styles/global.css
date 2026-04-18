@@ -90,6 +90,12 @@
   animation: scroll-left 50s linear infinite;
 }
 
+@media (max-width: 568px) {
+  .ticker {
+    animation: scroll-left 80s linear infinite;
+  }
+}
+
 /* 🔥 hover แล้วหยุด */
 .ticker:hover {
   animation-play-state: paused;
