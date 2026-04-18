@@ -72,7 +72,12 @@ export default function DateTimePicker({
       <label className="text-[#9B9BAF]">วันที่และเวลา</label>
 
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          if (!open) {
+            setViewMonth(selected || dayjs());
+          }
+          setOpen(!open);
+        }}
         className={`w-full px-4 py-2 rounded-[8px] border border-[#1E1E24] flex justify-between items-center ${
           selected ? "text-white" : "text-gray-700"
         }`}
