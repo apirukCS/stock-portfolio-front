@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dropdown from "./dropdown";
 import { useStockFilters } from "../contexts/stock-filter-context";
 
@@ -16,7 +16,7 @@ interface PaginationProps {
 }
 
 export default function Pagination(props: PaginationProps) {
-  const { updateFilter } = useStockFilters();
+  const { filters, updateFilter } = useStockFilters();
   const currentPage = props.page ?? 1;
   const [itemsPerPage, setItemsPerPage] = useState(25);
   const totalPages = props.totalPage ?? 1;
@@ -82,6 +82,10 @@ export default function Pagination(props: PaginationProps) {
         (idx < self.length - 1 && self[idx + 1] !== "ellipsis"),
     );
   };
+
+  useEffect(() => {
+    setItemsPerPage(filters.itemPerPage);
+  }, [filters.itemPerPage]);
 
   return (
     <div className="flex w-full items-center justify-between border-[#2a2a2a] text-white">
