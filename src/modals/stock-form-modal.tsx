@@ -74,7 +74,7 @@ export default function StockFormModal({
 
   const [price, setPrice] = useState(stockTransaction?.price ?? "");
   const [currencyPrice, setCurrencyPrice] = useState<"บาท" | "USD">(
-    (stockTransaction?.price_unit as "บาท" | "USD") ?? "บาท",
+    (stockTransaction?.price_unit as "บาท" | "USD") ?? "USD",
   );
   const [currencyVat, setCurrencyVat] = useState<"บาท" | "USD">(
     (stockTransaction?.vat_unit as "บาท" | "USD") ?? "USD",
