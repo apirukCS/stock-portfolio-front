@@ -43,15 +43,10 @@ export default function DateTimePicker({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
-  // ✅ เลือกวัน + รวมเวลา + confirm
-  //   const handleSelect = (date: dayjs.Dayjs) => {
-  //     setSelected(date);
-  //   };
-  const handleSelect = (date: dayjs.Dayjs) => {
+
+  const handleSelect = (date: dayjs.Dayjs, timeSelected: string) => {
     setSelected(date);
-
-    const [hour, minute] = time.split(":");
-
+    const [hour, minute] = timeSelected.split(":");
     const finalDateTime = date
       .hour(Number(hour))
       .minute(Number(minute))
@@ -59,7 +54,13 @@ export default function DateTimePicker({
       .format("YYYY-MM-DDTHH:mm:ss");
 
     onChange?.(finalDateTime);
-    //   setOpen(false);
+  };
+
+  const handleTimeSelect = (value: React.SetStateAction<string>) => {
+    setTime(value);
+    if (selected) {
+      handleSelect(selected, value.toString());
+    }
   };
 
   const confirm = () => {
@@ -144,7 +145,7 @@ export default function DateTimePicker({
                 return (
                   <button
                     key={i}
-                    onClick={() => handleSelect(date)}
+                    onClick={() => handleSelect(date, time)}
                     className={`
                     py-1 w-8 rounded-lg text-sm
                     ${
@@ -166,7 +167,7 @@ export default function DateTimePicker({
             <input
               type="time"
               value={time}
-              onChange={(e) => setTime(e.target.value)}
+              onChange={(e) => handleTimeSelect(e.target.value)}
               className="w-full mt-1 px-3 py-2 rounded bg-neutral-800 text-white border border-neutral-700"
             />
           </div>
