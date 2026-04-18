@@ -65,7 +65,7 @@ export default function SignInForm() {
         </h1>
         <p className="subtitle">
           จัดการพอร์ตพร้อมดูข่าวสารหุ้นและสรุปกำไร/ขาดทุน
-          เพื่อใช้เป็นตัวช่วยการยื่นภาษีและจัดทำบัญชีของคุณ
+          เพื่อใช้เป็นตัวช่วยในการจัดทำบัญชีของคุณ
         </p>
         <div className="flex items-center my-6">
           <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
