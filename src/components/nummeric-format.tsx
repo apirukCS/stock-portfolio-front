@@ -15,7 +15,7 @@ const NumberFormat = (props: NumberFormatProps) => {
       value={props.value}
       displayType={props.displayType ?? "text"}
       decimalScale={props.decimalScale}
-      fixedDecimalScale={props.fixedDecimalScale}
+      fixedDecimalScale={props.fixedDecimalScale ?? props.decimalScale != null}
     />
   );
 };
