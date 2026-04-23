@@ -23,11 +23,11 @@ export const SummaryCard = () => {
   const { data: stockSummaryTransaction } = useGetSummaryStockTransactions();
 
   useEffect(() => {
-    const summary = filters.isDisplaySummaryAll
+    const summary = filters.isDisplaySummaryAll || filters.isDisplaySummaryAll == null
       ? stockSummaryTransaction
       : calSummary(stockTransactions);
     setStockTransactionSummary(summary);
-  }, [filters, stockTransactions, stockSummaryTransaction]);
+  }, [filters, stockTransactions, stockSummaryTransaction, filters.isDisplaySummaryAll]);
 
   const cards: {
     key: "total_buy" | "total_sell" | "total_vat" | "total_commission";

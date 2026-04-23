@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/th";
 import calendarIcon from "../assets/svg/calendar-icon.svg";
+import Dropdown from "./dropdown";
 
 dayjs.locale("th");
 
@@ -21,17 +22,34 @@ export default function DateTimePicker({
 
   const [selected, setSelected] = useState<dayjs.Dayjs | null>(defaultDate);
 
-  // ✅ default เวลา = ตอนนี้
   const [time, setTime] = useState(
     defaultDate ? defaultDate.format("HH:mm") : dayjs().format("HH:mm"),
   );
 
-  const [viewMonth, setViewMonth] = useState(dayjs());
+  const [viewMonth, setViewMonth] = useState(defaultDate || dayjs());
 
   const daysInMonth = viewMonth.daysInMonth();
   const startOfMonth = viewMonth.startOf("month").day();
 
-  // ปิดเมื่อคลิกนอก
+  const thaiMonths = [
+    "มกราคม",
+    "กุมภาพันธ์",
+    "มีนาคม",
+    "เมษายน",
+    "พฤษภาคม",
+    "มิถุนายน",
+    "กรกฎาคม",
+    "สิงหาคม",
+    "กันยายน",
+    "ตุลาคม",
+    "พฤศจิกายน",
+    "ธันวาคม",
+  ];
+
+  const currentYear = dayjs().year();
+
+  const years = Array.from({ length: 21 }, (_, i) => currentYear - 10 + i);
+
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
@@ -40,13 +58,15 @@ export default function DateTimePicker({
     }
 
     if (open) document.addEventListener("mousedown", handleClickOutside);
+
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
-
   const handleSelect = (date: dayjs.Dayjs, timeSelected: string) => {
     setSelected(date);
+
     const [hour, minute] = timeSelected.split(":");
+
     const finalDateTime = date
       .hour(Number(hour))
       .minute(Number(minute))
@@ -56,11 +76,20 @@ export default function DateTimePicker({
     onChange?.(finalDateTime);
   };
 
-  const handleTimeSelect = (value: React.SetStateAction<string>) => {
+  const handleTimeSelect = (value: string) => {
     setTime(value);
+
     if (selected) {
-      handleSelect(selected, value.toString());
+      handleSelect(selected, value);
     }
+  };
+
+  const handleMonthChange = (monthIndex: number) => {
+    setViewMonth(viewMonth.month(monthIndex));
+  };
+
+  const handleYearChange = (year: number) => {
+    setViewMonth(viewMonth.year(year));
   };
 
   const confirm = () => {
@@ -83,23 +112,10 @@ export default function DateTimePicker({
         }`}
       >
         {selected
-          ? `${selected.format("DD MMM YYYY")} ${time}`
+          ? `${selected.format("DD MMM")} ${selected.year() + 543} ${time}`
           : "เลือกวันที่และเวลา"}
 
-        <div className="flex gap-1">
-          {/* {selected && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                clear();
-              }}
-              className="p-1 hover:bg-neutral-800 rounded"
-            >
-              ✕
-            </button>
-          )} */}
-          <img src={calendarIcon} alt="calendar" />
-        </div>
+        <img src={calendarIcon} alt="calendar" />
       </button>
 
       {open && (
@@ -107,19 +123,36 @@ export default function DateTimePicker({
           ref={panelRef}
           className="absolute mt-2 w-full bg-neutral-900 border border-neutral-700 shadow-xl rounded-lg p-4 z-50"
         >
-          {/* Header */}
-          <div className="flex items-center justify-between mb-3 text-white">
-            <button
-              onClick={() => setViewMonth(viewMonth.subtract(1, "month"))}
-            >
-              ◀
-            </button>
+          <div className="grid grid-cols-2 gap-2 mb-4">
+            <Dropdown
+              selectedId={viewMonth.month()}
+              options={thaiMonths.map((month, index) => ({
+                id: index,
+                name: month,
+              }))}
+              placeholder="เลือกเดือน"
+              py="py-2"
+              canCancelOption={false}
+              onChange={(e) => {
+                if (!e) return;
+                handleMonthChange(e.id);
+              }}
+            />
 
-            <div className="font-semibold">{viewMonth.format("MMMM YYYY")}</div>
-
-            <button onClick={() => setViewMonth(viewMonth.add(1, "month"))}>
-              ▶
-            </button>
+            <Dropdown
+              selectedId={viewMonth.year()}
+              options={years.map((year) => ({
+                id: year,
+                name: String(year + 543),
+              }))}
+              placeholder="เลือกปี"
+              py="py-2"
+              canCancelOption={false}
+              onChange={(e) => {
+                if (!e) return;
+                handleYearChange(e.id);
+              }}
+            />
           </div>
 
           {/* Week */}
@@ -134,7 +167,7 @@ export default function DateTimePicker({
           </div>
 
           {/* Calendar */}
-          <div className="grid grid-cols-7 text-center gap-1">
+          <div className="grid grid-cols-7 justify-items-center gap-1">
             {Array(startOfMonth)
               .fill(null)
               .map((_, i) => (
@@ -151,14 +184,11 @@ export default function DateTimePicker({
                   <button
                     key={i}
                     onClick={() => handleSelect(date, time)}
-                    className={`
-                    py-1 w-8 rounded-lg text-sm
-                    ${
+                    className={`py-1 w-8 rounded-lg text-sm ${
                       isSelected
                         ? "bg-blue-600 text-white"
                         : "text-gray-300 hover:bg-neutral-700"
-                    }
-                  `}
+                    }`}
                   >
                     {i + 1}
                   </button>
@@ -166,7 +196,7 @@ export default function DateTimePicker({
               })}
           </div>
 
-          {/* ✅ Time picker */}
+          {/* เวลา */}
           <div className="mt-4">
             <label className="text-sm text-gray-400">เวลา</label>
             <input
@@ -178,17 +208,10 @@ export default function DateTimePicker({
           </div>
 
           {/* Footer */}
-          <div className="flex justify-end gap-2 mt-4">
-            {/* <button
-              onClick={cancel}
-              className="w-full px-4 py-2 text-gray-300 hover:bg-neutral-700 rounded-lg"
-            >
-              ยกเลิก
-            </button> */}
-
+          <div className="mt-4">
             <button
               onClick={confirm}
-              className="w-full px-4 py-2 bg-[#7949FF] hover:bg-blue-700 text-white rounded-lg"
+              className="w-full px-4 py-2 bg-[#7949FF] text-white rounded-lg"
             >
               ตกลง
             </button>

@@ -55,7 +55,6 @@ export const useUpdateStock = () => {
         position: "top-right",
       });
       queryClient.invalidateQueries({ queryKey: ["stocks"] });
-      //มันไม่เคลียร์ stock-transactions
       queryClient.invalidateQueries({ queryKey: ["stock-transactions"] });
       queryClient.refetchQueries({ queryKey: ["/stock-transactions"] });
     },
